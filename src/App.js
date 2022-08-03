@@ -1,6 +1,11 @@
-
+import { useState } from "react";
+import Question from "./components/Question";
 
 function App() {
+
+  const [apiData, setApiAdata] = useState({
+    visibility: "false"
+  })
 
   const data = {
     "response_code": 0,
@@ -124,24 +129,22 @@ function App() {
     ]
   }
 
-  console.log(data.results)
+  setApiAdata(data)
 
+
+
+
+  // console.log(apiData.visibility)
   return (
     <div className="App">
-      {data.results.map((item, index) => {
-        const { question, correct_answer, incorrect_answers } = item
-        return (
-          <>
-            <h1 key={index}>{question}</h1>
-            {incorrect_answers.map((answer, index) => {
-              return (
-                <button key={index}>{answer}</button>
-              )
-            })}
-            <button>{correct_answer}</button>
-          </>
-        )
-      })}
+
+      <div>
+        <h1>Welcome To The Trivia Quiz!</h1>
+        <h3>Click on the Start button to begin the questions!</h3>
+        <button>Start Quiz</button>
+      </div>
+
+
 
     </div>
   );
