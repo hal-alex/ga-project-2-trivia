@@ -1,56 +1,68 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, createContext } from 'react'
+
+
 
 // const [ currentQuestion, setCurrentQuestion ] = useState('')
 
 // let currentIndex = 0
 
-const Question = ({ formData }) => {
+const Question = ({ testData, setStartVisibility, setVisible }) => {
+
+  function showStart() {
+    setStartVisibility(true)
+    setVisible(false)
+  }
 
   const [questionIndex, setQuestionIndex] = useState(0)
 
   const [score, setScore] = useState(0)
 
-  function compareAnswers(event, correct_answer) {
+  function compareAnswers(event, correctAnswer) {
     setQuestionIndex(questionIndex + 1)
 
-    if (event.target.value === correct_answer) {
+    if (event.target.value === correctAnswer) {
       setScore(score + 1)
     }
   }
  
   let newArray
 
-  function arrayMagic(correct_answer, incorrect_answers) {
-    newArray = [...incorrect_answers, correct_answer ].sort()
-    console.log(newArray)
+  function arrayMagic(correctAnswer, incorrectAnswers) {
+    newArray = [...incorrectAnswers, correctAnswer ].sort()
   }
+
+
 
   return (
     <>
       <div>
-        {formData.results.map((item, index) => {
+        {testData.map((item, index) => {
 
-          const { question, correct_answer, incorrect_answers } = item
+          const { question, correctAnswer, incorrectAnswers } = item
 
           if (index === questionIndex) {
-            {/* {createArray(correct_answer, incorrect_answers)} */ }
-            { arrayMagic(correct_answer, incorrect_answers) }
+            {/* {createArray(correctAnswer, incorrectAnswers)} */ }
+            { arrayMagic(correctAnswer, incorrectAnswers) }
             return (
               <>
-                <p>Question {index + 1} out of {formData.results.length} </p>
+                <p>Question {index + 1} out of {testData.length} </p>
                 <p>Your score is: {score}</p>
                 <h1>{question}</h1>
                 {newArray.map(answer => {
-                  return <button value={answer} onClick={(event) => { compareAnswers(event, correct_answer); }}>{answer}</button>
+                  return <button value={answer} onClick={(event) => { compareAnswers(event, correctAnswer); }}>{answer}</button>
                 })}
               </>
             )
           }
         })}
 
-        {questionIndex >= formData.results.length ? <p>Quiz complete! Your final score is: {score}</p> : ""}
+        {questionIndex >= testData.length ? [<p>Quiz complete! Your final score is: {score}</p>, <button onClick={showStart}>Start new quiz</button>  ]: ""  } 
+
         </div>
+
+
+
     </>
   )
 }

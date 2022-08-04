@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import Question from "./components/Question";
 import axios from "axios";
 
@@ -128,34 +128,40 @@ function App() {
   //   ]
   // }
   
-  const [ formData, setFormData ] = useState([])
+  const [testData, setTestData] = useState([])
 
-  // let data 
+    // useEffect(() => {
 
-  const handleEvent = async (event) => {
-    event.preventDefault()
-    const getData = async () => {
-      try {
-        const { data }  = await axios.get('https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple')
-        console.log(data["results"])
-        setFormData(data["results"])
-        data = data
-        // apiData = data
-      } catch (err) {
-        console.log(err)      }
-    }
-    getData()
-  }
+    //   const getData = async () => {
+    //     try {
+    //       const { data } = await axios.get('https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple')
+    //       console.log(data)
+    //       setTestData(data)
+    //       // ! this will be the entire API library
+    //     } catch (error) {
+    //       console.log(error)
+    //     }
+    //   }
+    //   getData()
+    // }, [])
+
+  useEffect(() => {
+
+      const getData = async () => {
+        try {
+          const { data } = await axios.get('https://the-trivia-api.com/api/questions')
+          console.log(data)
+          setTestData(data)
+          // ! this will be the entire API library
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      getData()
+    }, [])
   
 
-
-  function displayNextQuestion(event) {
-    event.preventDefault()  
-  }
-
   const [visibleQuestion, setVisible] = useState(false)
-
-
 
   const [startVisibility, setStartVisibility] = useState(true)
 
@@ -171,11 +177,11 @@ function App() {
         {/* Need to hide H3 and button once it is clicked */}
 
         {startVisibility ? <>
-          <h3 className="visibilty">Click on the Start button to begin the questions!</h3>
-          <button className="visibilty" onClick={(event) => { (questionVisibility, handleEvent(event) ); }}>Start Quiz</button>
+          <h3 >Click on the Start button to begin the questions!</h3>
+          <button  onClick={questionVisibility}>Start Quiz</button>
         </> : ""
         } 
-        {visibleQuestion && <Question data={data} onClick={questionVisibility} />}
+        {visibleQuestion && <Question testData={testData} setStartVisibility={setStartVisibility} setVisible={setVisible} onClick={questionVisibility} />}
       </div>
     </div>
   )
