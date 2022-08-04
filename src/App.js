@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Question from "./components/Question";
 
+// ! react BootStrap 
+
 function App() {
 
   const data = {
@@ -126,42 +128,36 @@ function App() {
   }
 
   function displayNextQuestion(event) {
-    event.preventDefault()
-
-    
+    event.preventDefault()  
   }
 
-  const [visible, setVisible] = useState(false)
+  const [visibleQuestion, setVisible] = useState(false)
 
-  const onClick = () => { setVisible(true) }
 
-  // onClick makes an API request
 
-  // current question state starts at 0 
+  const [startVisibility, setStartVisibility] = useState(true)
 
-  // console.log(apiData.visibility)
-
-  // ! state current question
+  const questionVisibility = () => { 
+    setVisible(true) 
+    setStartVisibility(false)
+  }
 
   return (
     <div className="App">
-
       <div>
         <h1>Welcome To The Trivia Quiz!</h1>
-        <h3>Click on the Start button to begin the questions!</h3>
-        <button onClick={onClick}>Start Quiz</button>
+        {/* Need to hide H3 and button once it is clicked */}
 
-        {/* <Question data={data} /> */}
+        {startVisibility ? <>
+          <h3 className="visibilty">Click on the Start button to begin the questions!</h3>
+          <button className="visibilty" onClick={questionVisibility}>Start Quiz</button>
+        </> : ""
+        } 
 
-        {visible && <Question data={data} onClick={onClick} />}
-
-
+        {visibleQuestion && <Question data={data} onClick={questionVisibility} />}
       </div>
-
-
-
     </div>
-  );
+  )
 }
 
 export default App;

@@ -3,41 +3,53 @@ import { useState } from 'react'
 
 // const [ currentQuestion, setCurrentQuestion ] = useState('')
 
-
-
 // let currentIndex = 0
-// Ask why { results } is not working
 
-// set question at index 0 using setstate
-// add a condition that checks if the index of the question matches the current iteration of the map method
-// 
 const Question = ({ data }) => {
 
   const [questionIndex, setQuestionIndex] = useState(0)
 
-  function increaseIndex(event) {
+  const [score, setScore] = useState(0)
+
+  function compareAnswers(event, correct_answer) {
     setQuestionIndex(questionIndex + 1)
+
+    if (event.target.value === correct_answer) {
+      setScore(score + 1)
+    }
+  }
+ 
+  let newArray
+
+  function arrayMagic(correct_answer, incorrect_answers) {
+    newArray = [...incorrect_answers, correct_answer ].sort()
+    console.log(newArray)
   }
 
   return (
     <>
       <div>
         {data.results.map((item, index) => {
+
           const { question, correct_answer, incorrect_answers } = item
+
           if (index === questionIndex) {
+            {/* {createArray(correct_answer, incorrect_answers)} */ }
+            { arrayMagic(correct_answer, incorrect_answers) }
             return (
               <>
+                <p>Question {index + 1} out of {data.results.length} </p>
+                <p>Your score is: {score}</p>
                 <h1>{question}</h1>
-                {incorrect_answers.map(answer => {
-                  return <button onClick={increaseIndex} >{answer}</button>
+                {newArray.map(answer => {
+                  return <button value={answer} onClick={(event) => { compareAnswers(event, correct_answer); }}>{answer}</button>
                 })}
-                <button onClick={increaseIndex} >{correct_answer}</button>
               </>
             )
           }
         })}
 
-      
+
         {/* {data.results.map((item, index) => {
           setCurrentQuestion(data.results.indexOf(item))
           console.log(currentQuestion)
@@ -55,7 +67,7 @@ const Question = ({ data }) => {
 
       </div>
 
-    {/* <div>
+      {/* <div>
         {data.results.map((item, index) => {
           setCurrentQuestion(data.results.indexOf(item))
           console.log(currentQuestion)
