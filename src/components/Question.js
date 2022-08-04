@@ -15,11 +15,29 @@ const Question = ({ data }) => {
 
   const [questionIndex, setQuestionIndex] = useState(0)
 
+  function increaseIndex(event) {
+    setQuestionIndex(questionIndex + 1)
+  }
+
   return (
     <>
       <div>
-        {console.log(data.results[questionIndex])}
+        {data.results.map((item, index) => {
+          const { question, correct_answer, incorrect_answers } = item
+          if (index === questionIndex) {
+            return (
+              <>
+                <h1>{question}</h1>
+                {incorrect_answers.map(answer => {
+                  return <button onClick={increaseIndex} >{answer}</button>
+                })}
+                <button onClick={increaseIndex} >{correct_answer}</button>
+              </>
+            )
+          }
+        })}
 
+      
         {/* {data.results.map((item, index) => {
           setCurrentQuestion(data.results.indexOf(item))
           console.log(currentQuestion)
