@@ -3,10 +3,6 @@ import Question from "./components/Question";
 
 function App() {
 
-  const [apiData, setApiAdata] = useState({
-    visibility: "false"
-  })
-
   const data = {
     "response_code": 0,
     "results": [
@@ -129,10 +125,19 @@ function App() {
     ]
   }
 
-  setApiAdata(data)
+  function displayNextQuestion(event) {
+    event.preventDefault()
 
+    
+  }
 
+  const [visible, setVisible] = useState(false)
 
+  const onClick = () => { setVisible(true) }
+
+  // onClick makes an API request
+
+  // current question state starts at 0 
 
   // console.log(apiData.visibility)
   return (
@@ -141,7 +146,13 @@ function App() {
       <div>
         <h1>Welcome To The Trivia Quiz!</h1>
         <h3>Click on the Start button to begin the questions!</h3>
-        <button>Start Quiz</button>
+        <button onClick={onClick}>Start Quiz</button>
+
+        {/* <Question data={data} /> */}
+
+        {visible && <Question data={data} onClick={onClick} />}
+
+
       </div>
 
 

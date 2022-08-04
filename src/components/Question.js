@@ -2,16 +2,20 @@ import React from 'react'
 
 
 // Ask why { results } is not working
-const Question = (props) => {
+
+// set question at index 0 using setstate
+// add a condition that checks if the index of the question matches the current iteration of the map method
+// 
+const Question = ({ data }) => {
 
   return (
     <>
     <div>
-        {props.data.results.map(item => {
+        {data.results.map(item => {
           const { question, correct_answer, incorrect_answers } = item
           return (
             <>
-              <h1>{question.replace(/&amp;/g, '&')}</h1>
+              <h1>{question}</h1>
               {incorrect_answers.map(answer => {
                 return <button>{answer}</button>
               })}
