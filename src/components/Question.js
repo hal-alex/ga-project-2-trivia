@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 // let currentIndex = 0
 
-const Question = ({ data }) => {
+const Question = ({ formData }) => {
 
   const [questionIndex, setQuestionIndex] = useState(0)
 
@@ -29,7 +29,7 @@ const Question = ({ data }) => {
   return (
     <>
       <div>
-        {data.results.map((item, index) => {
+        {formData.results.map((item, index) => {
 
           const { question, correct_answer, incorrect_answers } = item
 
@@ -38,7 +38,7 @@ const Question = ({ data }) => {
             { arrayMagic(correct_answer, incorrect_answers) }
             return (
               <>
-                <p>Question {index + 1} out of {data.results.length} </p>
+                <p>Question {index + 1} out of {formData.results.length} </p>
                 <p>Your score is: {score}</p>
                 <h1>{question}</h1>
                 {newArray.map(answer => {
@@ -49,42 +49,8 @@ const Question = ({ data }) => {
           }
         })}
 
-
-        {/* {data.results.map((item, index) => {
-          setCurrentQuestion(data.results.indexOf(item))
-          console.log(currentQuestion)
-          const { question, correct_answer, incorrect_answers } = item
-          return (
-            <>
-              <h1>{question}</h1>
-              {incorrect_answers.map(answer => {
-                return <button>{answer}</button>
-              })}
-              <button>{correct_answer}</button>
-            </>
-          )
-        })} */}
-
-      </div>
-
-      {/* <div>
-        {data.results.map((item, index) => {
-          setCurrentQuestion(data.results.indexOf(item))
-          console.log(currentQuestion)
-          const { question, correct_answer, incorrect_answers } = item
-          return (
-            <>
-              <h1>{question}</h1>
-              {incorrect_answers.map(answer => {
-                return <button>{answer}</button>
-              })}
-              <button>{correct_answer}</button>
-            </>
-          )
-        })}
-
-    </div> */}
-
+        {questionIndex >= formData.results.length ? <p>Quiz complete! Your final score is: {score}</p> : ""}
+        </div>
     </>
   )
 }
