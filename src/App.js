@@ -140,6 +140,9 @@ function App() {
   // current question state starts at 0 
 
   // console.log(apiData.visibility)
+
+  // ! state current question
+
   return (
     <div className="App">
 
