@@ -1,155 +1,26 @@
 import { useState, useEffect, createContext } from "react";
 import Question from "./components/Question";
 import axios from "axios";
+import { Button } from "react-bootstrap";
 
+import PageNavBar from "./components/PageNavBar";
 // ! react BootStrap 
+import About from './components/Home/About'
+
+
+import logo from './Img/attachment_95890421-removebg-preview.png'
 
 function App() {
 
-  // let data = {
-  //   "response_code": 0,
-  //   "results": [
-  //     {
-  //       "category": "General Knowledge",
-  //       "type": "boolean",
-  //       "difficulty": "easy",
-  //       "question": "The Great Wall of China is visible from the moon.",
-  //       "correct_answer": "False",
-  //       "incorrect_answers": [
-  //         "True"
-  //       ]
-  //     },
-  //     {
-  //       "category": "General Knowledge",
-  //       "type": "multiple",
-  //       "difficulty": "easy",
-  //       "question": "On a dartboard, what number is directly opposite No. 1?",
-  //       "correct_answer": "19",
-  //       "incorrect_answers": [
-  //         "20",
-  //         "12",
-  //         "15"
-  //       ]
-  //     },
-  //     {
-  //       "category": "General Knowledge",
-  //       "type": "multiple",
-  //       "difficulty": "hard",
-  //       "question": "The Swedish word &quot;Grunka&quot; means what in English?",
-  //       "correct_answer": "Thing",
-  //       "incorrect_answers": [
-  //         "People",
-  //         "Place",
-  //         "Pineapple"
-  //       ]
-  //     },
-  //     {
-  //       "category": "General Knowledge",
-  //       "type": "multiple",
-  //       "difficulty": "medium",
-  //       "question": "What country saw a world record 315 million voters turn out for elections on May 20, 1991?",
-  //       "correct_answer": "India",
-  //       "incorrect_answers": [
-  //         "United States of America",
-  //         "Soviet Union",
-  //         "Poland"
-  //       ]
-  //     },
-  //     {
-  //       "category": "General Knowledge",
-  //       "type": "multiple",
-  //       "difficulty": "hard",
-  //       "question": "How long did it take the motorized window washers of the original World Trade Center to clean the entire exterior of the building?",
-  //       "correct_answer": "1 Month",
-  //       "incorrect_answers": [
-  //         "3 Weeks",
-  //         "1 Week",
-  //         "2 Months"
-  //       ]
-  //     },
-  //     {
-  //       "category": "General Knowledge",
-  //       "type": "boolean",
-  //       "difficulty": "easy",
-  //       "question": "One of Donald Trump&#039;s 2016 Presidential Campaign promises was to build a border wall between the United States and Mexico.",
-  //       "correct_answer": "True",
-  //       "incorrect_answers": [
-  //         "False"
-  //       ]
-  //     },
-  //     {
-  //       "category": "General Knowledge",
-  //       "type": "multiple",
-  //       "difficulty": "hard",
-  //       "question": "What year was the RoboSapien toy robot released?",
-  //       "correct_answer": "2004",
-  //       "incorrect_answers": [
-  //         "2000",
-  //         "2001",
-  //         "2006"
-  //       ]
-  //     },
-  //     {
-  //       "category": "General Knowledge",
-  //       "type": "multiple",
-  //       "difficulty": "hard",
-  //       "question": "Who founded the Khan Academy?",
-  //       "correct_answer": "Sal Khan",
-  //       "incorrect_answers": [
-  //         "Ben Khan",
-  //         "Kitt Khan",
-  //         "Adel Khan"
-  //       ]
-  //     },
-  //     {
-  //       "category": "General Knowledge",
-  //       "type": "multiple",
-  //       "difficulty": "easy",
-  //       "question": "In which fast food chain can you order a Jamocha Shake?",
-  //       "correct_answer": "Arby&#039;s",
-  //       "incorrect_answers": [
-  //         "McDonald&#039;s",
-  //         "Burger King",
-  //         "Wendy&#039;s"
-  //       ]
-  //     },
-  //     {
-  //       "category": "General Knowledge",
-  //       "type": "multiple",
-  //       "difficulty": "easy",
-  //       "question": "Earth is located in which galaxy?",
-  //       "correct_answer": "The Milky Way Galaxy",
-  //       "incorrect_answers": [
-  //         "The Mars Galaxy",
-  //         "The Galaxy Note",
-  //         "The Black Hole"
-  //       ]
-  //     }
-  //   ]
-  // }
-  
   const [testData, setTestData] = useState([])
 
-    // useEffect(() => {
-
-    //   const getData = async () => {
-    //     try {
-    //       const { data } = await axios.get('https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple')
-    //       console.log(data)
-    //       setTestData(data)
-    //       // ! this will be the entire API library
-    //     } catch (error) {
-    //       console.log(error)
-    //     }
-    //   }
-    //   getData()
-    // }, [])
 
   useEffect(() => {
 
       const getData = async () => {
         try {
           const { data } = await axios.get('https://the-trivia-api.com/api/questions')
+          // console.log(data)
           setTestData(data)
           // ! this will be the entire API library
         } catch (error) {
@@ -171,19 +42,48 @@ function App() {
 
   return (
     <div className="App">
-      <div>
-        <h1>Welcome To The Trivia Quiz!</h1>
-        {/* Need to hide H3 and button once it is clicked */}
+      
+        <PageNavBar id="basic-navbar-nav" className='justify-content-end' />
 
+        {/* <About /> */}
+        {/* Make it clickable event with useState visibility */}
+        <div className="hero">
+        {/* <PageNavbar /> */}
+        <div className="image-logo">
+          <img src={logo} alt='logo'   />
+          {/* just a small image maybe need to make it small */}
+        </div>
+        {/* <h1>Welcome To The Trivia Quiz!</h1> */}
+        
+        {/* Need to hide H3 and button once it is clicked */}
+        
         {startVisibility ? <>
-          <h3 >Click on the Start button to begin the questions!</h3>
-          <button  onClick={questionVisibility}>Start Quiz</button>
+          <h6 className="font-weight-bold text-center display-6">Click on the Start button to begin the questions!</h6>
+          <div className="d-grid gap-2">
+          <button className="btn btn-success btn-sm"  onClick={questionVisibility}><h4>Start Quiz</h4></button>
+        </div>
         </> : ""
         } 
         {visibleQuestion && <Question testData={testData} setStartVisibility={setStartVisibility} setVisible={setVisible} onClick={questionVisibility} />}
+        </div>
+    
+      <footer className="footer-wrapper">
+      <div className="text-center text-white p-3 " variant='dark' bg="dark" >
+           <h4>Made By <a className="gitLink" href='https://github.com/hal-alex' target='_blank'>Alex</a> & <a className="gitLink" href='https://github.com/SyztemError' target='_blank'>Serhan</a>
+           
+           </h4> 
+            {/* variant="dark" */}
+    
       </div>
+ 
+    </footer>
     </div>
+    
+    
   )
 }
 
 export default App;
+
+
+
