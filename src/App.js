@@ -150,7 +150,6 @@ function App() {
       const getData = async () => {
         try {
           const { data } = await axios.get('https://the-trivia-api.com/api/questions')
-          console.log(data)
           setTestData(data)
           // ! this will be the entire API library
         } catch (error) {

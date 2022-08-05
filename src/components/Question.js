@@ -32,20 +32,19 @@ const Question = ({ testData, setStartVisibility, setVisible }) => {
     newArray = [...incorrectAnswers, correctAnswer ].sort()
   }
 
-
-
   return (
     <>
       <div>
         {testData.map((item, index) => {
 
-          const { question, correctAnswer, incorrectAnswers } = item
+          const { question, correctAnswer, incorrectAnswers, category, difficulty } = item
 
           if (index === questionIndex) {
-            {/* {createArray(correctAnswer, incorrectAnswers)} */ }
             { arrayMagic(correctAnswer, incorrectAnswers) }
             return (
               <>
+                <p>Question category: {category}</p>
+                <p>Question difficulty: {difficulty}</p>
                 <p>Question {index + 1} out of {testData.length} </p>
                 <p>Your score is: {score}</p>
                 <h1>{question}</h1>
@@ -57,7 +56,20 @@ const Question = ({ testData, setStartVisibility, setVisible }) => {
           }
         })}
 
-        {questionIndex >= testData.length ? [<p>Quiz complete! Your final score is: {score}</p>, <button onClick={showStart}>Start new quiz</button>  ]: ""  } 
+        {questionIndex >= testData.length ? [<p>Quiz complete! Your final score is: {score}</p>, <button onClick={showStart}>Start new quiz</button>, testData.map((item, index) => {
+          const { question, correctAnswer, incorrectAnswers } = item
+          return(
+            <>
+              <div>
+                <p>{question}</p>
+                <p>Correct answer: {correctAnswer}</p>
+                <p>Incorrect answers: {incorrectAnswers.map((answer, index) => {
+                  return (index + 1 === incorrectAnswers.length ? `${answer}`: `${answer}, `)
+                })}</p>
+              </div>
+            </>
+          )
+        })  ]: ""  } 
 
         </div>
 
